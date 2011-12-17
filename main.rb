@@ -4,7 +4,7 @@ Bundler.require
 
 WIDTH, HEIGHT = 800, 600
 
-%w(state).each do |file|
+%w(state game_state).each do |file|
   require "./#{file}"
 end
 
