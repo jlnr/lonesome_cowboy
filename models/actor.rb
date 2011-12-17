@@ -81,12 +81,13 @@ class Actor < GameObject
       target_x += dx
       target_y += dy
     end
-    if obj = game.object_at(target_x, target_y) and obj.class != self.class then
+    if obj = game.object_at(target_x, target_y) and obj.hostile?(self) then
       obj.kill
     end
   end
   
   def kill
+    @tile_x = @tile_y = -1
     @dead = true
   end
 end

@@ -6,4 +6,8 @@ class Thief < Actor
   def speed
     7
   end
+  
+  def hostile? other
+    other.is_a? Player
+  end
 end

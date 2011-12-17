@@ -19,4 +19,8 @@ class GameObject
   
   def react
   end
+  
+  def hostile? other
+    false
+  end
 end
