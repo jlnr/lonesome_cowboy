@@ -1,5 +1,5 @@
 class GameController < Controller
-  INPUT_QUEUE_SIZE = 2
+  INPUT_QUEUE_SIZE = 1
   
   def initialize
     @game = Game.new

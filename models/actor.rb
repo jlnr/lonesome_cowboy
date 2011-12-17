@@ -39,12 +39,7 @@ class Actor < GameObject
     elsif @display_y > target_display_y then
       @display_y = (@display_y - speed).clamp(target_display_y...WIDTH)
     end
-    angle_diff = Gosu::angle_diff(@angle, @target_angle)
-    if angle_diff.abs < 1 then
-      @angle = @target_angle
-    else
-      @angle += angle_diff * 0.2
-    end
+    @angle += Gosu::angle_diff(@angle, @target_angle) * 0.25
   end
   
   def try_move dx, dy
