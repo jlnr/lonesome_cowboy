@@ -49,6 +49,10 @@ class Actor < GameObject
       @tile_x = tile_x + dx
       @tile_y = tile_y + dy
       @target_angle = Gosu::angle(@display_x, @display_y, target_display_x, target_display_y)
+      true
     end
+  end
+  
+  def react
   end
 end

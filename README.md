@@ -12,5 +12,12 @@ Ludum Dare #22 entry by Julian Raschke <julian@raschke.de>
 - Gitbox.app
   - lacks integrated diff view à la Tower, unhappy
 - Controller/Model separation
-- Generated levels?
-- Kitten? :D
+- Generated levels? Preliminary brainstorming...
+    - Start with just the player surviving
+    - loop:
+        - n random reverse movement steps of each character
+        - spawn enemies where they would be shot
+        - stop if no possible move left
+    - Biggest problem is reverse movement, especially with reactions. o_O
+
+- Kittens? :D

@@ -1,23 +1,9 @@
+# The game class largely mediates the following interaction:
+# - The current object makes its turn, either by player interaction or AI.
+# - The current object reacts, then the next, then the next ...
+# - The object list is rotated left by one object.
+# The trick is to do all this asynchronously.
 class Game
-  # Logic works like that:
-  # for each object do
-  # - make / wait for decision
-  #   view: indicate possible moves
-  # - movement
-  #   view: movement animation with auto-aiming
-  # - shooting
-  #   view: shooting animation for actor
-  #         being-hit animation for victim(s)
-  # end
-  
-  # Preliminary brainstorming for level generation
-  # Start with just the player surviving
-  # loop do
-  # - n random reverse movement steps of each character
-  # - spawn enemies where they would be shot
-  # - stop if no possible move left
-  # end
-  
   attr_reader :objects
   
   def initialize
@@ -27,6 +13,7 @@ class Game
     5.times do |i|
       @objects << Thief.new(self, 10 + i, 1)
     end
+    @reaction_pending = nil
   end
   
   def draw
@@ -44,10 +31,21 @@ class Game
     
     @objects.each &:animate
     
-    while not busy? and not @objects.first.is_a? Player do
-      @objects.first.make_turn
+    while not busy? do
+      while @reaction_pending do
+        return if busy?
+        @reaction_pending.react
+        index = @objects.index(@reaction_pending)
+        @reaction_pending = @objects[index + 1]
+        # We have reached the end of the object list, each has had a chance
+        # to react. Now we can rotate by one step.
+        rotate_objects if @reaction_pending.nil?
+      end
+
+      return if @objects.first.is_a? Player
       
-      rotate_objects
+      @objects.first.make_turn
+      @reaction_pending = @objects.first
     end
   end
   
@@ -58,9 +56,9 @@ class Game
   def try_move_player dx, dy
     assert { not busy? }
     
-    @player.try_move dx, dy
-    
-    rotate_objects
+    if @player.try_move dx, dy then
+      @reaction_pending = @player
+    end
   end
   
   def can_move? tile_x, tile_y
@@ -72,7 +70,8 @@ class Game
   
   def rotate_objects
     assert { not @objects.empty? }
+    assert { not @reaction_pending }
+    
     @objects << @objects.shift
   end
-  
 end
