@@ -6,7 +6,7 @@ require 'core_ext'
 require 'metrics'
 require 'window'
 
-# "Forward declaration" so that it can be used as a base class.
+# "Forward declaration" so that it can be used as a base class in actor.rb m(
 class GameObject
 end
 
