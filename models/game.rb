@@ -52,9 +52,4 @@ class Game
     
     @player.try_move dx, dy
   end
-  
-  def can_move? tile_x, tile_y
-    (0...TILES_X).include? tile_x and (0...TILES_Y).include? tile_y and
-      not @objects.find { |obj| obj.tile_x == tile_x and obj.tile_y == tile_y }
-  end
 end

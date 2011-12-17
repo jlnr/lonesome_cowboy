@@ -25,7 +25,9 @@ class Actor < GameObject
   end
   
   def animating?
-    display_x != target_display_x or display_y != target_display_y
+    @angle != @target_angle or
+      display_x != target_display_x or
+      display_y != target_display_y
   end
   
   def animate
@@ -43,16 +45,17 @@ class Actor < GameObject
     if angle_diff.abs < 1 then
       @angle = @target_angle
     else
-      @angle += angle_diff * 0.2
+      @angle += angle_diff * 0.3
     end
   end
   
   def try_move dx, dy
     assert { not animating? }
     
-    if game.can_move? tile_x + dx, tile_y + dy then
-      @tile_x = tile_x + dx
-      @tile_y = tile_y + dy
+    @tile_x = (@tile_x + dx).clamp(0...TILES_X)
+    @tile_y = (@tile_y + dy).clamp(0...TILES_Y)
+    
+    if animating? then
       @target_angle = Gosu::angle(@display_x, @display_y, target_display_x, target_display_y)
     end
   end
