@@ -1,9 +1,10 @@
-class Actor
+class Actor < GameObject
   attr_reader :game
   attr_reader :tile_x, :tile_y
   attr_reader :display_x, :display_y
   
   def initialize(game, tile_x, tile_y)
+    super
     @game = game
     @tile_x, @tile_y = tile_x, tile_y
     @display_x, @display_y = target_display_x, target_display_y

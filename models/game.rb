@@ -18,18 +18,17 @@ class Game
   # - stop if no possible move left
   # end
   
-  attr_reader :map
-  attr_reader :actors
+  attr_reader :objects
   
   def initialize
     @map = Map.new
     @player = Player.new(self, 4, 4)
-    @actors = [@player]
+    @objects = [@player]
   end
   
   def draw
     @map.draw
-    @actors.each &:draw
+    @objects.each &:draw
   end
   
   def update
@@ -38,11 +37,11 @@ class Game
       binding.pry
     end
     
-    @actors.each &:animate
+    @objects.each &:animate
   end
   
   def busy?
-    @actors.any? &:animating?
+    @objects.any? &:animating?
   end
   
   def try_move_player dx, dy

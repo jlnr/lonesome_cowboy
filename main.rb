@@ -6,6 +6,10 @@ require 'core_ext'
 require 'metrics'
 require 'window'
 
+# Hrml... :/
+class GameObject
+end
+
 Dir['controllers/*.rb', 'models/*.rb'].sort.each do |file|
   require "./#{file}"
 end
