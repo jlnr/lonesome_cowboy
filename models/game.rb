@@ -24,6 +24,9 @@ class Game
     @map = Map.new
     @player = Player.new(self, 4, 4)
     @objects = [@player]
+    5.times do |i|
+      @objects << Thief.new(self, 10 + i, 1)
+    end
   end
   
   def draw

@@ -6,7 +6,7 @@ require 'core_ext'
 require 'metrics'
 require 'window'
 
-# Hrml... :/
+# "Forward declaration" so that it can be used as a base class.
 class GameObject
 end
 

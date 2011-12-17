@@ -3,12 +3,17 @@ class Actor < GameObject
   attr_reader :tile_x, :tile_y
   attr_reader :display_x, :display_y
   
-  def initialize(game, tile_x, tile_y)
-    super
-    @game = game
-    @tile_x, @tile_y = tile_x, tile_y
+  def initialize(*args)
+    super *args
     @display_x, @display_y = target_display_x, target_display_y
     @angle = @target_angle = Gosu::random(0, 360)
+    
+    @images = Gosu::Image.load_tiles "media/#{self.class.name.downcase}.png", TILE_SIZE, TILE_SIZE
+  end
+  
+  def draw
+    @images.first.draw_rot display_x + 2, display_y + 6, Z_ACTORS, @angle, 0.5, 0.5, 0.9, 0.9, 0x80_000000
+    @images.first.draw_rot display_x, display_y, Z_ACTORS, @angle
   end
   
   def target_display_x
