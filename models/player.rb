@@ -1,4 +1,4 @@
-class Player < Actor
+class Player < Gunman
   def speed
     5
   end
@@ -6,5 +6,4 @@ class Player < Actor
   def hostile? other
     true
   end
-  
 end

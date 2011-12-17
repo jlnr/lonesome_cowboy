@@ -23,4 +23,12 @@ class GameObject
   def hostile? other
     false
   end
+  
+  def dead?
+    @dead
+  end
+  
+  def kill!
+    @dead = true
+  end
 end

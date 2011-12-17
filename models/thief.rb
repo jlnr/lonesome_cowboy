@@ -1,4 +1,4 @@
-class Thief < Actor
+class Thief < Gunman
   def make_turn
     try_move rand(4)
   end
