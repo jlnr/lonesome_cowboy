@@ -13,4 +13,10 @@ class GameObject
   
   def animate
   end
+  
+  def make_turn
+  end
+  
+  def react
+  end
 end

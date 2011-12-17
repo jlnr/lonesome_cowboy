@@ -8,10 +8,10 @@ class Game
   
   def initialize
     @map = Map.new
-    @player = Player.new(self, 4, 4)
+    @player = Player.new(self, 4, 4, rand(4))
     @objects = [@player]
     5.times do |i|
-      @objects << Thief.new(self, 10 + i, 1)
+      @objects << Thief.new(self, 10 + i, 1, rand(4))
     end
     @reaction_pending = nil
   end
@@ -53,10 +53,10 @@ class Game
     @objects.any? &:animating?
   end
   
-  def try_move_player dx, dy
+  def try_move_player direction
     assert { not busy? }
     
-    if @player.try_move dx, dy then
+    if @player.try_move direction then
       @reaction_pending = @player
     end
   end

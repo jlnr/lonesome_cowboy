@@ -10,7 +10,7 @@ class GameController < Controller
     @game.update
     
     if not @game.busy? and not @queue.empty? then
-      @game.try_move_player(*@queue.shift)
+      @game.try_move_player @queue.shift
     end
   end
   
@@ -21,18 +21,18 @@ class GameController < Controller
   def button_down id
     return if @queue.size == INPUT_QUEUE_SIZE
     
-    vector = case id
+    direction = case id
     when Gosu::KbLeft, Gosu::GpLeft then
-      [-1, 0]
+      DIR_LEFT
     when Gosu::KbRight, Gosu::GpRight then
-      [+1, 0]
+      DIR_RIGHT
     when Gosu::KbUp, Gosu::GpUp then
-      [0, -1]
+      DIR_UP
     when Gosu::KbDown, Gosu::GpDown then
-      [0, +1]
+      DIR_DOWN
     else
       return
     end
-    @queue << vector
+    @queue << direction
   end
 end

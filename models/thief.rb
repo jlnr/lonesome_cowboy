@@ -1,6 +1,6 @@
 class Thief < Actor
   def make_turn
-    try_move 0, 1
+    try_move rand(4)
   end
   
   def speed
