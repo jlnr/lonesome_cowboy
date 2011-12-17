@@ -15,7 +15,4 @@ class Controller
   
   def button_down id
   end
-  
-  def button_up id
-  end
 end

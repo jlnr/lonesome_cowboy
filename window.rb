@@ -19,8 +19,4 @@ class Window < Gosu::Window
   def button_down id
     Controller.root.button_down id
   end
-  
-  def button_up id
-    Controller.root.button_up id
-  end
 end
