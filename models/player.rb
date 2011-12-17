@@ -6,7 +6,7 @@ class Player < Actor
   end
   
   def draw
-    @images.first.draw_rot display_x, display_y, Z_ACTORS, 0
+    @images.first.draw_rot display_x, display_y, Z_ACTORS, @angle
   end
   
   def speed
