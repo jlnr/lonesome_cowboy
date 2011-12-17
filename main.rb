@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require
 
+require 'core_ext'
 require 'metrics'
 require 'window'
 

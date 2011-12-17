@@ -33,10 +33,21 @@ class Game
   end
   
   def update
-    @actors.each &:update_animation
+    if $window.button_down? Gosu::KbF12 then
+      require 'pry'
+      binding.pry
+    end
+    
+    @actors.each &:animate
   end
   
-  def move_player_if_not_animating dx, dy
+  def busy?
+    @actors.any? &:animating?
+  end
+  
+  def try_move_player dx, dy
+    assert { not busy? }
     
+    @player.try_move dx, dy
   end
 end

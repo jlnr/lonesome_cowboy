@@ -6,6 +6,10 @@ class Player < Actor
   end
   
   def draw
-    @images.first.draw x * TILE_SIZE, y * TILE_SIZE, Z_ACTORS
+    @images.first.draw_rot display_x, display_y, Z_ACTORS, 0
+  end
+  
+  def speed
+    5
   end
 end
