@@ -1,10 +1,10 @@
-class State
-  def self.current
-    @current
+class Controller
+  def self.root
+    @root
   end
   
-  def self.current= state
-    @current = state
+  def self.root= controller
+    @root = controller
   end
   
   def draw
