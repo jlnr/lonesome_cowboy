@@ -1,8 +1,4 @@
 class Actor < GameObject
-  attr_reader :game
-  attr_reader :tile_x, :tile_y
-  attr_reader :display_x, :display_y
-  
   def initialize(game, x, y, direction)
     super game, x, y
     @direction = direction
@@ -18,9 +14,9 @@ class Actor < GameObject
   def draw
     return if @dead
     
-    @images.first.draw_rot display_x + 2, display_y + 6, Z_ACTORS, @display_angle,
+    @images.first.draw_rot @display_x + 2, @display_y + 6, Z_ACTORS, @display_angle,
       0.5, 0.5, 0.9, 0.9, 0x80_000000
-    @images.first.draw_rot display_x, display_y, Z_ACTORS, @display_angle
+    @images.first.draw_rot @display_x, @display_y, Z_ACTORS, @display_angle
   end
   
   def target_display_x
@@ -41,7 +37,7 @@ class Actor < GameObject
     # Not checking for the angle here. It should always change fast enough
     # as to not look weird when #react is being called.
     
-    display_x != target_display_x or display_y != target_display_y
+    @display_x != target_display_x or @display_y != target_display_y
   end
   
   def animate
@@ -79,7 +75,15 @@ class Actor < GameObject
   def react
     return if @dead
     
-    
+    dx, dy = *@direction.direction_to_deltas
+    target_x, target_y = tile_x + dx, tile_y + dy
+    while game.can_move? target_x, target_y do
+      target_x += dx
+      target_y += dy
+    end
+    if obj = game.object_at(target_x, target_y) and obj.class != self.class then
+      obj.kill
+    end
   end
   
   def kill
