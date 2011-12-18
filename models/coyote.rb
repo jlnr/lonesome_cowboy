@@ -12,6 +12,7 @@ class Coyote < Actor
         @display_y += dy * TILE_SIZE / 2
         # Bite people!
         obj.kill!
+        @direction = direction
         return
       end
     end
