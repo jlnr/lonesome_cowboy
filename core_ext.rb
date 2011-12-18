@@ -37,4 +37,16 @@ module Gosu
   def self.draw_rect x, y, w, h, color, z
     draw_quad x, y, color, x + w, y, color, x, y + h, color, x + w, y + h, color, z
   end
+  
+  def self.draw_line *args
+    $window.draw_line *args
+  end
+  
+  def self.draw_quad *args
+    $window.draw_quad *args
+  end
+  
+  def self.button_down? id
+    $window.button_down? id
+  end
 end

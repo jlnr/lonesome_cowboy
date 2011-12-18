@@ -4,6 +4,7 @@ Bundler.require
 
 require 'core_ext'
 require 'metrics'
+require 'hints'
 require 'window'
 
 # "Forward declarations" that can be used as base classes

@@ -1,4 +1,6 @@
 class Player < Gunman
+  include PlayerHints
+  
   def draw
     super
     

@@ -25,7 +25,7 @@ class Game
   def update
     assert { not objects.empty? }
     
-    if $window.button_down? Gosu::KbF12 then
+    if Gosu::button_down? Gosu::KbF12 then
       require 'pry'
       binding.pry
     end

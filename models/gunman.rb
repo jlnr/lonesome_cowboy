@@ -14,7 +14,7 @@ class Gunman < Actor
     v, d = victim_and_direction
     if v then
       v.kill!
-      @direction = d
+      shoot_at d
     end
   end
   
@@ -35,5 +35,12 @@ class Gunman < Actor
     end
     
     return nil, nil
+  end
+  
+  def shoot_at direction
+    @direction = direction
+    dx, dy = *direction.direction_to_deltas
+    @display_x += dx * TILE_SIZE / 2
+    @display_y += dy * TILE_SIZE / 2
   end
 end
