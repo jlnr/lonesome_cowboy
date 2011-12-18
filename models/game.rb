@@ -18,7 +18,7 @@ class Game
     20.times do
       begin
         x, y = rand(TILES_X), rand(TILES_Y)
-        @objects << Box.new(self, x, y) unless object_at x, y
+        @objects << Rock.new(self, x, y) unless object_at x, y
       rescue
         next
       end
