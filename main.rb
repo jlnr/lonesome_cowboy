@@ -16,5 +16,5 @@ Dir['controllers/*.rb', 'models/*.rb'].sort.each do |file|
 end
 
 window = Window.new
-Controller.root = GameController.new
+Controller.root = TitleController.new
 window.show

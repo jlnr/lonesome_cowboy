@@ -4,7 +4,8 @@ class TextController < Controller
   
   def initialize(background_controller, text)
     @background_controller = background_controller
-    @image = Gosu::Image.from_text(text, 100, :width => 510, :align => :center)
+    @image = Gosu::Image.from_text(text, 100,
+      :width => 510, :align => :center, :font => FONT_NAME)
   end
   
   def draw
