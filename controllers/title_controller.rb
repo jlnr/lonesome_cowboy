@@ -1,3 +1,5 @@
+# Encoding: UTF-8
+
 class TitleController < Controller
   TITLE_TEXT = "<b>Lonesome ☆ Cowboy</b>\n\n" +
     "Chased by thieves and coyotes, all you want to be is alone.\n" +
