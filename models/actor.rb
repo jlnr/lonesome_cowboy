@@ -14,7 +14,7 @@ class Actor < GameObject
     
     return if dead?
     
-    @images.first.draw_rot @display_x + 2, @display_y + 6, Z_ACTORS, @display_angle,
+    @images.first.draw_rot @display_x + 2, @display_y + 6, Z_SHADOWS, @display_angle,
       0.5, 0.5, 0.9, 0.9, 0x80_000000
     @images.first.draw_rot @display_x, @display_y, Z_ACTORS, @display_angle
   end

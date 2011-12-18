@@ -11,9 +11,16 @@ class Game
     @objects = []
     @player = Player.new(self, 4, 4, rand(4) * 2)
     @objects << @player
-    5.times do |i|
-      @objects << Thief.new(self, 10 + i, 1, rand(4) * 2)
-      @objects << Box.new(self, 8 + i, 2)
+    @objects << Thief.new(self, 0, 0, rand(4) * 2)
+    @objects << Thief.new(self, TILES_X-1, 0, rand(4) * 2)
+    @objects << Thief.new(self, TILES_X-1, TILES_Y-1, rand(4) * 2)
+    20.times do
+      begin
+        x, y = rand(TILES_X), rand(TILES_Y)
+        @objects << Box.new(self, x, y) unless object_at x, y
+      rescue
+        next
+      end
     end
     @reaction_pending = nil
   end
