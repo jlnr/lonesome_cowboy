@@ -21,6 +21,8 @@ class Game
       x, y = rand(TILES_X), rand(TILES_Y)
       @objects << Rock.new(self, x, y) unless object_at x, y
       x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
       @objects << Coyote.new(self, x, y, rand(8)) unless object_at x, y
     end
     @reaction_pending = nil
@@ -66,8 +68,9 @@ class Game
   
   def try_move_player direction
     assert { not busy? }
+    assert { objects.first == player }
     
-    if @player.try_move direction then
+    if direction.nil? or @player.try_move direction then
       @player.make_turn
       @reaction_pending = @player
     end

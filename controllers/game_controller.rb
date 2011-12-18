@@ -22,14 +22,17 @@ class GameController < Controller
     return if @queue.size == INPUT_QUEUE_SIZE
     
     direction = case id
-    when Gosu::KbLeft, Gosu::GpLeft then
+    when Gosu::KbLeft, Gosu::KbNumpad4, Gosu::GpLeft then
       DIR_LEFT
-    when Gosu::KbRight, Gosu::GpRight then
+    when Gosu::KbRight, Gosu::KbNumpad6, Gosu::GpRight then
       DIR_RIGHT
-    when Gosu::KbUp, Gosu::GpUp then
+    when Gosu::KbUp, Gosu::KbNumpad2, Gosu::GpUp then
       DIR_UP
-    when Gosu::KbDown, Gosu::GpDown then
+    when Gosu::KbDown, Gosu::KbNumpad8, Gosu::GpDown then
       DIR_DOWN
+    when Gosu::KbSpace, Gosu::KbEnter, Gosu::KbReturn,
+        Gosu::KbNumpad5, Gosu::GpButton0 then
+      nil
     else
       return
     end
