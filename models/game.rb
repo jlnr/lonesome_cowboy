@@ -23,6 +23,10 @@ class Game
       x, y = rand(TILES_X), rand(TILES_Y)
       @objects << Rock.new(self, x, y) unless object_at x, y
       x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
       @objects << Coyote.new(self, x, y, rand(8)) unless object_at x, y
     end
     @reaction_pending = nil
@@ -88,7 +92,7 @@ class Game
   end
   
   def won?
-    not objects.find { |obj| obj.hostile? player and not obj.dead? }
+    objects.none? { |obj| obj.hostile? player and not obj.dead? }
   end
   
   def lost?

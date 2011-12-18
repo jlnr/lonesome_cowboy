@@ -10,6 +10,6 @@ class Player < Gunman
   end
   
   def hostile? other
-    true
+    not other.is_a? Player
   end
 end
