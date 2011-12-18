@@ -3,5 +3,5 @@ source :rubygems
 gem 'gosu', :require => 'gosu/preview'
 
 group :debug do
-  gem 'pry'
+  gem 'pry', :git => 'git://github.com/pry/pry.git'
 end

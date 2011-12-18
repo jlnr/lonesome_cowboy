@@ -16,12 +16,10 @@ class Game
     @objects << Thief.new(self, TILES_X-1, 0, rand(4) * 2)
     @objects << Thief.new(self, TILES_X-1, TILES_Y-1, rand(4) * 2)
     20.times do
-      begin
-        x, y = rand(TILES_X), rand(TILES_Y)
-        @objects << Rock.new(self, x, y) unless object_at x, y
-      rescue
-        next
-      end
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Coyote.new(self, x, y, rand(8)) unless object_at x, y
     end
     @reaction_pending = nil
   end
@@ -53,7 +51,7 @@ class Game
       end
       
       # Wait for user input
-      return if @objects.first.is_a? Player
+      return if @objects.first.is_a? Player or busy?
       
       @objects.first.make_turn
       @reaction_pending = @objects.first

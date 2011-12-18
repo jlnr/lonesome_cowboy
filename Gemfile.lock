@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/pry/pry.git
+  revision: 36d685f71fd67ed47c079ce9b5fe0cf8ea75ab87
+  specs:
+    pry (0.9.8.0pre1)
+      coderay (~> 0.9)
+      method_source (~> 0.6)
+      slop (< 3, >= 2.4.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -5,19 +14,14 @@ GEM
     gosu (0.7.41)
     method_source (0.6.7)
       ruby_parser (>= 2.3.1)
-    pry (0.9.7.4)
-      coderay (~> 0.9.8)
-      method_source (~> 0.6.7)
-      ruby_parser (>= 2.3.1)
-      slop (~> 2.1.0)
     ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
-    sexp_processor (3.0.4)
-    slop (2.1.0)
+    sexp_processor (3.0.9)
+    slop (2.4.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   gosu
-  pry
+  pry!
