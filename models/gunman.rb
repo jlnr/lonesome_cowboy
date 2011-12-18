@@ -1,4 +1,10 @@
 class Gunman < Actor
+  def make_turn
+    super
+    
+    reload
+  end
+  
   def try_move direction
     super_result = super
     if super_result then
@@ -9,7 +15,7 @@ class Gunman < Actor
   end
   
   def react
-    return if dead?
+    return if dead? or @reloading
     
     v, d = victim_and_direction
     if v then
@@ -43,5 +49,10 @@ class Gunman < Actor
     dx, dy = *direction.direction_to_deltas
     @display_x += dx * TILE_SIZE / 2
     @display_y += dy * TILE_SIZE / 2
+    @reloading = true
+  end
+  
+  def reload
+    @reloading = false
   end
 end

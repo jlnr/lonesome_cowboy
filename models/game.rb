@@ -15,7 +15,9 @@ class Game
     @objects << Thief.new(self, 0, TILES_Y-1, rand(4) * 2)
     @objects << Thief.new(self, TILES_X-1, 0, rand(4) * 2)
     @objects << Thief.new(self, TILES_X-1, TILES_Y-1, rand(4) * 2)
-    20.times do
+    5.times do
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
       x, y = rand(TILES_X), rand(TILES_Y)
       @objects << Rock.new(self, x, y) unless object_at x, y
       x, y = rand(TILES_X), rand(TILES_Y)
@@ -66,6 +68,7 @@ class Game
     assert { not busy? }
     
     if @player.try_move direction then
+      @player.make_turn
       @reaction_pending = @player
     end
   end
