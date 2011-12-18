@@ -2,6 +2,8 @@ class Coyote < Actor
   include AI
   
   def make_turn
+    return if dead?
+    
     # First, try to attack
     possible_directions.each do |direction|
       dx, dy = direction.direction_to_deltas
