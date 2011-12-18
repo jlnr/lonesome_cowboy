@@ -1,8 +1,36 @@
+module ActorHints
+  def mark_as_killer
+    @killer_color = Gosu::Color.argb(0x60, 0xff, 0xff, 0xff)
+  end
+  
+  def draw
+    super
+    
+    if @killer_color then
+      Gosu::draw_rect TILE_SIZE * tile_x, TILE_SIZE * tile_y,
+        TILE_SIZE, TILE_SIZE, @killer_color, Z_HINTS
+    end
+  end
+  
+  def animate
+    super
+    
+    if @killer_color then
+      @killer_color.alpha -= 2
+      @killer_color = nil if @killer_color.alpha == 0
+    end
+  end
+end
+
 module PlayerHints
-  def draw_possible_moves
+  def draw
+    super
+    
+    return if dead? or animating? or game.objects.first != self
+    
     hint_color = 0x22_00ff00
     
-    (0...4).each do |direction|
+    FOUR_DIRECTIONS.each do |direction|
       dx, dy = direction.direction_to_deltas
       if game.can_move? self.tile_x + dx, self.tile_y + dy then
         Gosu::draw_rect TILE_SIZE * (tile_x + dx), TILE_SIZE * (tile_y + dy),

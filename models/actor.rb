@@ -1,15 +1,17 @@
 class Actor < GameObject
+  include ActorHints
+  
   def initialize(game, x, y, direction)
     super game, x, y
     @direction = direction
     
     @display_x, @display_y = target_display_x, target_display_y
     @display_angle = target_display_angle
-    
-    @images = Gosu::Image.load_tiles "media/#{self.class.name.downcase}.png", TILE_SIZE, TILE_SIZE
   end
   
   def draw
+    super
+    
     return if dead?
     
     @images.first.draw_rot @display_x + 2, @display_y + 6, Z_ACTORS, @display_angle,
@@ -39,6 +41,8 @@ class Actor < GameObject
   end
   
   def animate
+    super
+    
     return false if dead?
     
     if @display_x < target_display_x then

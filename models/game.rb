@@ -4,15 +4,16 @@
 # - The object list is rotated left by one object.
 # The trick is to do all this asynchronously.
 class Game
-  attr_reader :objects
+  attr_reader :objects, :player
   
   def initialize
     @map = Map.new
     @objects = []
-    @player = Player.new(self, 4, 4, rand(4))
+    @player = Player.new(self, 4, 4, rand(4) * 2)
     @objects << @player
     5.times do |i|
-      @objects << Thief.new(self, 10 + i, 1, rand(4))
+      @objects << Thief.new(self, 10 + i, 1, rand(4) * 2)
+      @objects << Box.new(self, 8 + i, 2)
     end
     @reaction_pending = nil
   end
@@ -42,7 +43,8 @@ class Game
         # to react. Now we can rotate by one step.
         rotate_objects if @reaction_pending.nil?
       end
-
+      
+      # Wait for user input
       return if @objects.first.is_a? Player
       
       @objects.first.make_turn

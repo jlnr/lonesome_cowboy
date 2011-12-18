@@ -13,6 +13,7 @@ class Gunman < Actor
     
     v, d = victim_and_direction
     if v then
+      self.mark_as_killer
       v.kill!
       shoot_at d
     end
@@ -22,7 +23,7 @@ class Gunman < Actor
   
   def victim_and_direction
     # Look in the current direction first, makes the game more realistic
-    [@direction, *0..3].each do |direction|
+    [@direction, *FOUR_DIRECTIONS].each do |direction|
       dx, dy = *direction.direction_to_deltas
       target_x, target_y = tile_x + dx, tile_y + dy
       while game.can_move? target_x, target_y do

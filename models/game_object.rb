@@ -7,6 +7,10 @@ class GameObject
     
     @game = game
     @tile_x, @tile_y = tile_x, tile_y
+    @images = Gosu::Image.load_tiles "media/#{self.class.name.downcase}.png", TILE_SIZE, TILE_SIZE
+  end
+  
+  def draw
   end
   
   def animating?

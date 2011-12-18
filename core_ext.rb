@@ -10,15 +10,19 @@ class Numeric
   end
   
   def direction_to_angle
-    self * 90
+    self * 45
   end
   
   def direction_to_deltas
     case self
-    when DIR_LEFT  then [-1, 0]
-    when DIR_RIGHT then [+1, 0]
-    when DIR_UP    then [0, -1]
-    when DIR_DOWN  then [0, +1]
+    when DIR_UP         then [ 0, -1]
+    when DIR_UP_RIGHT   then [+1, -1]
+    when DIR_RIGHT      then [+1,  0]
+    when DIR_DOWN_RIGHT then [+1, +1]
+    when DIR_DOWN       then [0,  +1]
+    when DIR_DOWN_LEFT  then [-1, +1]
+    when DIR_LEFT       then [-1,  0]
+    when DIR_UP_LEFT    then [-1, -1]
     else
       assert { false }
       [0, 0]
