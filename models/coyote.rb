@@ -28,6 +28,6 @@ class Coyote < Actor
   end
   
   def speed
-    9
+    7
   end
 end

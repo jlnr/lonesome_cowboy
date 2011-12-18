@@ -53,4 +53,8 @@ module Gosu
   def self.button_down? id
     $window.button_down? id
   end
+  
+  def self.flush
+    $window.flush
+  end
 end

@@ -6,6 +6,14 @@
 class Game
   attr_reader :objects, :player
   
+  def won?
+    not objects.find { |obj| player.hostile? obj and not obj.dead? }
+  end
+  
+  def lost?
+    @player.dead?
+  end
+  
   def initialize
     @map = Map.new
     @objects = []

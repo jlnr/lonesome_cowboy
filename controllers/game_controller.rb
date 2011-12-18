@@ -9,7 +9,11 @@ class GameController < Controller
   def update
     @game.update
     
-    if not @game.busy? and not @queue.empty? then
+    if @game.won? or @game.lost? then
+      # This means that a game is 'lost' even if it is both 'lost?' and 'won?'
+      result = @game.lost? ? TextController::GAME_LOST : TextController::GAME_WON
+      Controller.root = TextController.new(self, result)
+    elsif not @game.busy? and not @queue.empty? then
       @game.try_move_player @queue.shift
     end
   end
