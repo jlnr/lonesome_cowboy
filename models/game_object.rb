@@ -30,6 +30,10 @@ class GameObject
     false
   end
   
+  def dangerous_for? other
+    false
+  end
+  
   def dead?
     @dead
   end

@@ -27,6 +27,12 @@ class Coyote < Actor
     other.is_a? Player
   end
   
+  def dangerous_for? other
+    (other.tile_x - tile_x).abs <= 1 and
+      (other.tile_x - tile_x).abs <= 1 and
+      hostile? other
+  end
+  
   def speed
     7
   end

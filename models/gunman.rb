@@ -8,8 +8,8 @@ class Gunman < Actor
   def try_move direction
     super_result = super
     if super_result then
-      v, d = victim_and_direction
-      @direction = d if d
+      victim, direction = best_victim_with_direction
+      @direction = direction if direction
     end
     super_result
   end
@@ -17,17 +17,25 @@ class Gunman < Actor
   def react
     return if dead? or @reloading
     
-    v, d = victim_and_direction
-    if v then
+    victim, direction = best_victim_with_direction
+    
+    if victim then
       self.mark_as_killer
-      v.kill!
-      shoot_at d
+      victim.kill!
+      shoot_at direction
     end
   end
   
-  private
+  def dangerous_for? other
+    victims_with_directions.map(&:first).include? other
+  end
   
-  def victim_and_direction
+  protected
+  
+  # @return [[victim1, direction1], .. [victimN, directionN]]
+  def victims_with_directions
+    possible_results = []
+    
     # Look in the current direction first, makes the game more realistic
     [@direction, *possible_directions].each do |direction|
       dx, dy = *direction.direction_to_deltas
@@ -37,11 +45,19 @@ class Gunman < Actor
         target_y += dy
       end
       if obj = game.object_at(target_x, target_y) and obj.hostile?(self) then
-        return obj, direction
+        possible_results << [obj, direction]
       end
     end
     
-    return nil, nil
+    possible_results
+  end
+  
+  private
+    
+  def best_victim_with_direction
+    victims = victims_with_directions
+    first_dangerous_victim = victims.find { |v, d| v.dangerous_for? self }
+    first_dangerous_victim || victims.first || [nil, nil]
   end
   
   def shoot_at direction

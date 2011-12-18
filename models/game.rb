@@ -6,14 +6,6 @@
 class Game
   attr_reader :objects, :player
   
-  def won?
-    not objects.find { |obj| player.hostile? obj and not obj.dead? }
-  end
-  
-  def lost?
-    @player.dead?
-  end
-  
   def initialize
     @map = Map.new
     @objects = []
@@ -93,6 +85,14 @@ class Game
   def can_move? tile_x, tile_y
     (0...TILES_X).include? tile_x and (0...TILES_Y).include? tile_y and
       not object_at(tile_x, tile_y)
+  end
+  
+  def won?
+    not objects.find { |obj| obj.hostile? player and not obj.dead? }
+  end
+  
+  def lost?
+    player.dead?
   end
   
   private
