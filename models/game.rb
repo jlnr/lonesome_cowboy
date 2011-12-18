@@ -12,6 +12,7 @@ class Game
     @player = Player.new(self, 4, 4, rand(4) * 2)
     @objects << @player
     @objects << Thief.new(self, 0, 0, rand(4) * 2)
+    @objects << Thief.new(self, 0, TILES_Y-1, rand(4) * 2)
     @objects << Thief.new(self, TILES_X-1, 0, rand(4) * 2)
     @objects << Thief.new(self, TILES_X-1, TILES_Y-1, rand(4) * 2)
     20.times do
