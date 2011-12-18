@@ -1,5 +1,5 @@
 class TextController < Controller
-  GAME_WON = "<c=00ff00>YOU\nWON."
+  GAME_WON = "<c=00ff00>FINALLY\nALONE!"
   GAME_LOST = "<c=ff0000>YOU\nLOST."
   
   def initialize(background_controller, text)
