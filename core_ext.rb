@@ -32,3 +32,9 @@ def assert &condition
     condition.binding.pry
   end
 end
+
+module Gosu
+  def self.draw_rect x, y, w, h, color, z
+    draw_quad x, y, color, x + w, y, color, x, y + h, color, x + w, y + h, color, z
+  end
+end

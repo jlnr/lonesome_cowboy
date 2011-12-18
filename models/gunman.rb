@@ -12,7 +12,10 @@ class Gunman < Actor
     return if dead?
     
     v, d = victim_and_direction
-    v.kill! if v
+    if v then
+      v.kill!
+      @direction = d
+    end
   end
   
   private
