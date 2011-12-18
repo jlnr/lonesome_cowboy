@@ -11,25 +11,8 @@ class Game
     @objects = []
     @player = Player.new(self, 4, 4, rand(4) * 2)
     @objects << @player
-    @objects << Thief.new(self, 0, 0, rand(4) * 2)
-    @objects << Thief.new(self, 0, TILES_Y-1, rand(4) * 2)
-    @objects << Thief.new(self, TILES_X-1, 0, rand(4) * 2)
-    @objects << Thief.new(self, TILES_X-1, TILES_Y-1, rand(4) * 2)
-    5.times do
-      x, y = rand(TILES_X), rand(TILES_Y)
-      @objects << Rock.new(self, x, y) unless object_at x, y
-      x, y = rand(TILES_X), rand(TILES_Y)
-      @objects << Rock.new(self, x, y) unless object_at x, y
-      x, y = rand(TILES_X), rand(TILES_Y)
-      @objects << Rock.new(self, x, y) unless object_at x, y
-      x, y = rand(TILES_X), rand(TILES_Y)
-      @objects << Rock.new(self, x, y) unless object_at x, y
-      x, y = rand(TILES_X), rand(TILES_Y)
-      @objects << Rock.new(self, x, y) unless object_at x, y
-      x, y = rand(TILES_X), rand(TILES_Y)
-      @objects << Coyote.new(self, x, y, rand(8)) unless object_at x, y
-    end
-    @reaction_pending = nil
+    generate_level
+    @action_pending = nil
   end
   
   def draw
@@ -38,8 +21,6 @@ class Game
   end
   
   def update
-    assert { not objects.empty? }
-    
     if Gosu::button_down? Gosu::KbF12 then
       require 'pry'
       binding.pry
@@ -48,21 +29,17 @@ class Game
     @objects.each &:animate
     
     while not busy? do
-      while @reaction_pending do
-        return if busy?
-        @reaction_pending.react
-        index = @objects.index(@reaction_pending)
-        @reaction_pending = @objects[index + 1]
-        # We have reached the end of the object list, each has had a chance
-        # to react. Now we can rotate by one step.
-        rotate_objects if @reaction_pending.nil?
+      if @action_pending then
+        @action_pending.react
+        @action_pending = nil
+        rotate_objects
       end
       
-      # Wait for user input
+      # Wait for user input or animations started by reaction
       return if @objects.first.is_a? Player or busy?
       
       @objects.first.make_turn
-      @reaction_pending = @objects.first
+      @action_pending = @objects.first
     end
   end
   
@@ -76,7 +53,7 @@ class Game
     
     if direction.nil? or @player.try_move direction then
       @player.make_turn
-      @reaction_pending = @player
+      @action_pending = @player
     end
   end
   
@@ -101,9 +78,30 @@ class Game
   
   private
   
+  def generate_level
+    @objects << Thief.new(self, 0, 0, rand(4) * 2)
+    @objects << Thief.new(self, 0, TILES_Y-1, rand(4) * 2)
+    @objects << Thief.new(self, TILES_X-1, 0, rand(4) * 2)
+    @objects << Thief.new(self, TILES_X-1, TILES_Y-1, rand(4) * 2)
+    5.times do
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Rock.new(self, x, y) unless object_at x, y
+      x, y = rand(TILES_X), rand(TILES_Y)
+      @objects << Coyote.new(self, x, y, rand(8)) unless object_at x, y
+    end
+  end
+  
   def rotate_objects
     assert { not @objects.empty? }
-    assert { not @reaction_pending }
+    assert { @action_pending.nil? }
     
     @objects << @objects.shift
   end
