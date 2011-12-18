@@ -8,8 +8,9 @@ class Game
   
   def initialize
     @map = Map.new
+    @objects = []
     @player = Player.new(self, 4, 4, rand(4))
-    @objects = [@player]
+    @objects << @player
     5.times do |i|
       @objects << Thief.new(self, 10 + i, 1, rand(4))
     end

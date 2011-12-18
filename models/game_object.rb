@@ -3,6 +3,8 @@ class GameObject
   attr_reader :tile_x, :tile_y
   
   def initialize(game, tile_x, tile_y)
+    assert { game.object_at(tile_x, tile_y).nil? }
+    
     @game = game
     @tile_x, @tile_y = tile_x, tile_y
   end
