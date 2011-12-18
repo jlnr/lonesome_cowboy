@@ -11,6 +11,8 @@ Ludum Dare #22 entry by Julian Raschke <julian@raschke.de>
   - super buggy, maybe shouldn't have built it from git
 - Gitbox.app
   - lacks integrated diff view à la Tower, unhappy
+- Littering my code with `assert { condition }` and using pry to debug things
+  - absolutely awesome
 - Controller/Model separation
 - Generated levels? Preliminary brainstorming...
     - Start with just the player surviving
